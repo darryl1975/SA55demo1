@@ -53,6 +53,21 @@ public class PersonController {
         return "personList";
     }
 
+    @GetMapping(value = "/add")
+    public String addPerson(Model model) {
+        Person person = new Person();
+        model.addAttribute("person", person);
+
+        return "addPerson";
+    }
+
+    @PostMapping(value = "/add")
+    public String savePerson(@ModelAttribute(value="person") Person p) {
+        personService.addPerson(p);
+
+        return "redirect:/persons/list";
+    }
+
     @PostMapping(value = "/update")
     public String updatePerson(@ModelAttribute(value="per") Person p, Model model) {
         model.addAttribute("per", p);
